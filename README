@@ -12,4 +12,5 @@ STEPS TAKEN TO SET UP THIS DJANGO PROJECT:
 7. in manage.py, potentially change #!/usr/bin/env python --> #!/usr/bin/env python3
 8. ./manage.py startapp cloud_app
 
-
+To run the server: 
+python ./manage.py runserver
