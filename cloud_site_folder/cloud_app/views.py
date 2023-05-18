@@ -5,6 +5,7 @@ from django.http import HttpResponse
 def home_view(request):
     # default GET
     # print(request.GET)
+    # https://www.thethingsindustries.com/docs/the-things-stack/interact/api/#multi-step-actions
     return render(request, "home.html")
 
 def index(request):
