@@ -20,15 +20,15 @@
   
   body {
     padding: 2% 0;
-    /* background-color: #37404a; */
-    background-color: #FFF;
+    background-color: #37404a;
+    /* background-color: #FFF; */
   }
   
   h1 {
     font-family: "Roboto", sans-serif;
     font-size: 2.2em;
     font-weight: 300;
-    color: #9615DB;
+    color: #C70BFE;
     text-transform: uppercase;
   }
   
@@ -36,18 +36,18 @@
     font-family: "Roboto", sans-serif;
     font-size: 1.1em;
     font-weight: 300;
-    /* color: #FFF; */
-    color: #333;
+    color: #FFF;
+    /* color: #333; */
   }
   
   a {
-    /* color: #FFF; */
-    color: #333;
+    color: #FFF;
+    /* color: #333; */
   }
   a:hover {
     text-decoration: none;
-    /* color: #FFF; */
-    color: #333;
+    color: #FFF;
+    /* color: #333; */
   }
   
   #survey-form label,
@@ -57,8 +57,8 @@
     font-family: "Roboto", sans-serif;
     font-size: 1.1em;
     font-weight: 300;
-    /* color: #FFF; */
-    color: #333;
+    color: #FFF;
+    /* color: #333; */
     letter-spacing: 0.5px;
   }
   #survey-form input::-webkit-input-placeholder {
@@ -79,8 +79,8 @@
     width: 100%;
     overflow: hidden;
     outline: none;
-    /* border: 2px solid #333; */
-    border: 2px solid #fff;
+    border: 2px solid #333;
+    /* border: 2px solid #fff; */
   }
   #survey-form input {
     margin-top: 1.5%;
@@ -88,14 +88,14 @@
     background: transparent;
     border: none;
     outline: none;
-    /* border-bottom: 2px solid #FFF; */
-    border-bottom: 2px solid #333;
+    border-bottom: 2px solid #FFF;
+    /* border-bottom: 2px solid #333; */
     font-size: 1.1em;
     font-weight: 300;
-    color: #9615DB;
+    color: #C70BFE;
   }
   #survey-form input:focus {
-    border-color: #9615DB;
+    border-color: #C70BFE;
   }
   #survey-form [type=checkbox],
   #survey-form [type=radio] {
@@ -120,19 +120,19 @@
     height: 23px;
     width: 23px;
     transition: all 0.15s ease-out 0s;
-    /* background: #37404a; */
-    background: #FFF;
-    /* color: #FFF; */
-    color: #333;
+    background: #37404a;
+    /* background: #FFF; */
+    color: #FFF;
+    /* color: #333; */
     cursor: pointer;
     outline: none;
     z-index: 1000;
-    /* border: 1px solid #FFF; */
-    border: 1px solid #333;
+    border: 1px solid #FFF;
+    /* border: 1px solid #333; */
   }
   #survey-form [type=checkbox]:hover,
   #survey-form [type=radio]:hover {
-    border-color: #9615DB;
+    border-color: #C70BFE;
   }
   #survey-form [type=checkbox]:checked:before,
   #survey-form [type=radio]:checked:before {
@@ -147,13 +147,13 @@
     font-family: "Glyphicons Halflings";
     line-height: 20px;
     font-size: 15px;
-    color: #9615DB;
+    color: #C70BFE;
   }
   #survey-form [type=checkbox]:focus,
   #survey-form [type=radio]:focus {
     outline: none;
-    /* border-color: #FFF; */
-    border-color: #333;
+    border-color: #FFF;
+    /* border-color: #333; */
   }
   #survey-form [type=radio] {
     border-radius: 50%;
@@ -173,11 +173,11 @@
   #survey-form select {
     height: 40px;
     padding-left: 5px;
-    /* background-color: #37404a; */
-    background-color: #FFF;
-    /* border: 2px solid #FFF; */
-    border: 2px solid #333;
-    color: #9615DB;
+    background-color: #37404a;
+    /* background-color: #FFF; */
+    border: 2px solid #FFF;
+    /* border: 2px solid #333; */
+    color: #C70BFE;
   }
   #survey-form select option {
     padding: 5px 10px;
@@ -185,7 +185,7 @@
     cursor: pointer;
   }
   #survey-form select option:hover {
-    background-color: #9615DB;
+    background-color: #C70BFE;
   }
   #survey-form textarea {
     resize: none;
@@ -193,11 +193,11 @@
     padding: 10px 10px 0px 20px;
     width: 100%;
     height: 90px;
-    color: #9615DB;
-    /* background-color: #37404a; */
-    background-color: #FFF;
-    /* border: 2px solid #FFF; */
-    border: 2px solid #333;
+    color: #C70BFE;
+    background-color: #37404a;
+    /* background-color: #FFF; */
+    border: 2px solid #FFF;
+    /* border: 2px solid #333; */
   }
   #survey-form .btn {
     display: inline-block;
@@ -208,11 +208,11 @@
     text-transform: uppercase;
     text-decoration: none;
     cursor: pointer;
-    border: 3px solid #9615DB;
+    border: 3px solid #C70BFE;
     border-radius: 0;
     font-weight: 500;
     font-size: 1.2em;
-    color: #9615DB;
+    color: #C70BFE;
     text-align: center;
     background: none;
     transition: color 0.25s ease;
@@ -224,14 +224,14 @@
     left: 0;
     width: 0;
     height: 100%;
-    background-color: #9615DB;
+    background-color: #C70BFE;
     transform-origin: left;
     transition: width 0.5s ease;
     z-index: -1;
   }
   #survey-form .btn:hover {
-    /* color: #37404a; */
-    color: #FFF;
+    color: #37404a;
+    /* color: #FFF; */
   }
   #survey-form .btn:hover:after {
     width: 100%;
