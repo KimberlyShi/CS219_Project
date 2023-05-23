@@ -50,3 +50,9 @@ def ttn_view(request):
 
 def index(request):
     return HttpResponse("Hello World")
+
+
+
+def devices_view(request):
+    return HttpResponse("Hello World")
+
