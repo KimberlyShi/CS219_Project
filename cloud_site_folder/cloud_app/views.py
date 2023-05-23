@@ -2,6 +2,8 @@ from django.shortcuts import render
 
 from django.http import HttpResponse
 
+from .models import Devices
+
 import requests, json
 
 def home_view(request):
@@ -54,5 +56,5 @@ def index(request):
 
 
 def devices_view(request):
-    return HttpResponse("Hello World")
-
+    print(Devices.objects.all())
+    return render(request, 'devices.html', {'device': Devices.objects.all()})
