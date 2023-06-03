@@ -4,7 +4,7 @@ from django.http import HttpResponse
 
 from .models import Devices
 
-import requests, json
+import requests, json, subprocess, ast
 
 def home_view(request):
     return render(request, "home.html")
@@ -55,6 +55,21 @@ def index(request):
 
 
 
+
+def getTTNDevices():
+    # print(os.system("ttn-lw-cli use symrec.nam1.cloud.thethings.industries"))
+    # print(os.system("ttn-lw-cli login --callback=false"))
+    devices = subprocess.Popen("ttn-lw-cli end-device list --application-id abctest", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    output, _ = devices.communicate()
+    dict_str = output.decode("UTF-8")
+    devices_list = ast.literal_eval(dict_str)
+    for device in devices_list:
+        device["device_network"] = "TTN"
+    return devices_list
+
+
+
 def devices_view(request):
-    print(Devices.objects.all())
-    return render(request, 'devices.html', {'device': Devices.objects.all()})
+    ttn_devices = getTTNDevices()
+    # return render(request, 'devices.html', {'devices': Devices.objects.all()})
+    return render(request, 'devices.html', {'devices': ttn_devices})
