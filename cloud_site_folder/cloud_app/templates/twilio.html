@@ -7,24 +7,25 @@
    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 <body>
-   <input type="checkbox" id="active">
+<input type="checkbox" id="active">
    <label for="active" class="menu-btn"><span></span></label>
    <label for="active" class="close"></label>
    <div class="wrapper">
       <ul>
-         <li><a href="">Home</a></li>
+         <li><a href="home">Home</a></li>
          <li><a href="ttn">TTN</a></li>
-         <li><a href="twilio">Twilio</a></li>
+         <li><a href="">Twilio</a></li>
          <li><a href="#">Logs</a></li>
          <li><a href="devices">Devices</a></li>
       </ul>
    </div>
    <div class="content">
       <div class="title">
-         Device Registration
+         Twilio Page
       </div>
       <p>
-         Building a single cloud platform to support two IoT technologies
+         Twilio Page
       </p>
+    <a href='{% url 'register_device' %}'><button>register device</button></a>
    </div>
 </body>

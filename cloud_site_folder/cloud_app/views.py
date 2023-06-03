@@ -6,6 +6,10 @@ from .models import Devices
 
 import requests, json
 
+import os
+from twilio.rest import Client
+from dotenv import load_dotenv
+
 def home_view(request):
     return render(request, "home.html")
 
@@ -58,3 +62,26 @@ def index(request):
 def devices_view(request):
     print(Devices.objects.all())
     return render(request, 'devices.html', {'device': Devices.objects.all()})
+
+def twilio_view(request):
+    return render(request, "twilio.html")
+
+def register_device(request):
+    load_dotenv()
+    # Find your Account SID and Auth Token at twilio.com/console
+    # and set the environment variables. See http://twil.io/secure
+    account_sid = os.getenv('TWILIO_ACCOUNT_SID')
+    auth_token = os.getenv('TWILIO_AUTH_TOKEN')
+    client = Client(account_sid, auth_token)
+
+    try:
+        # sim = client.supersim.v1.sims.create(iccid='89883070000004578975', registration_code='H3LL0W0RLD')
+        # print("registered device: ")
+        # print(sim.sid)
+        sim = client.supersim.v1.sims('HS292982d1e4647acb2966c69425e06be3').fetch()
+        print("status:", sim.status)
+        print("fleet:", sim.fleet)
+    except Exception as e: 
+        print("exception: ")
+        print(e)
+    return render(request, "twilio.html")
