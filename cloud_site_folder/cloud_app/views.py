@@ -14,8 +14,8 @@ def home_view(request):
     return render(request, "home.html")
 
 # def ttn_view(request):
-#     ttn_status = "ok"
-#     return render(request, "ttn.html", {'ttn_status': ttn_status})
+#     # ttn_status = "ok"
+#     return render(request, "ttn.html")
 
 def ttn_view(request):
     # https://www.thethingsindustries.com/docs/the-things-stack/interact/api/#multi-step-actions
