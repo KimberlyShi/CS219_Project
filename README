@@ -18,5 +18,10 @@ Additional pip installs:
 - `pip install python-dotenv`
 
 To run the server: 
+
 1. Navigate to `cloud_site_folder`
 2. Run `python ./manage.py runserver`
+
+pip installs: 
+pip install python-dotenv
+pip install twilio

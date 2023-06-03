@@ -75,24 +75,44 @@ def devices_view(request):
     return render(request, 'devices.html', {'device': Devices.objects.all()})
 
 def twilio_view(request):
-    return render(request, "twilio.html")
-
-def register_device(request):
+    # account_sid = request.GET.get('account_sid', False) # os.getenv('TWILIO_ACCOUNT_SID')
+    # auth_token = request.GET.get('auth_token', False) # os.getenv('TWILIO_AUTH_TOKEN')
     load_dotenv()
-    # Find your Account SID and Auth Token at twilio.com/console
-    # and set the environment variables. See http://twil.io/secure
     account_sid = os.getenv('TWILIO_ACCOUNT_SID')
-    auth_token = os.getenv('TWILIO_AUTH_TOKEN')
+    auth_token = os.getenv('TWILIO_AUTH_TOKEN')    
     client = Client(account_sid, auth_token)
 
+    iccid = request.GET.get('iccid', False) # '89883070000004578983'
+    registration_code = request.GET.get('registration_code', False) # 'XSTSYBZXQC'
+    debug = True
+    if debug:
+        print("account_sid: ", account_sid)
+        print("auth_token: ", auth_token)
+        print("iccid: ", iccid)
+        print("registration_code: ", registration_code)
+    output_json = None
+    data = {}
+    data["devices"] = []
+    # try device registration
+    try: 
+        sim = client.supersim.v1.sims.create(iccid=iccid, registration_code=registration_code)
+        print("registered device: ")
+        print(sim.sid)
+    except Exception as e:
+        print("exception for device registration: ", e)
+
+    # api call to retrieve devices on twilio
     try:
-        # sim = client.supersim.v1.sims.create(iccid='89883070000004578975', registration_code='H3LL0W0RLD')
-        # print("registered device: ")
-        # print(sim.sid)
-        sim = client.supersim.v1.sims('HS292982d1e4647acb2966c69425e06be3').fetch()
+        sid = "HS292982d1e4647acb2966c69425e06be3"
+        sim = client.supersim.v1.sims(sid).fetch()
+        data["devices"].append({"sid": sid, "status": sim.status})
         print("status:", sim.status)
-        print("fleet:", sim.fleet)
+        # print("fleet:", sim.fleet)
+        output_json = json.dumps(data)
+        print("data: ", data)
+        print("json: ", output_json)
     except Exception as e: 
         print("exception: ")
         print(e)
-    return render(request, "twilio.html")
+    return render(request, 'twilio.html',  {"data" : output_json} )
+
