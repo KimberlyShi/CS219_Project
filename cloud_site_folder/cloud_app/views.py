@@ -13,6 +13,10 @@ from dotenv import load_dotenv
 def home_view(request):
     return render(request, "home.html")
 
+# def ttn_view(request):
+#     ttn_status = "ok"
+#     return render(request, "ttn.html", {'ttn_status': ttn_status})
+
 def ttn_view(request):
     # https://www.thethingsindustries.com/docs/the-things-stack/interact/api/#multi-step-actions
     request_params = {
@@ -23,12 +27,19 @@ def ttn_view(request):
     }
 
     # To register a device newdev1 in application app1, first, register the DevEUI, JoinEUI and cluster addresses in the Identity Server. 
+    headers = {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer NNSXS.V2E6Z34WKY7OWEKMBNCHWZMV5PPEDNT7ZNEXLBY.3OHCZN4WUOUSN2ZXB6NP54R6E7ANC7HJIDVD6YIIFNIFYVU3AFSQ',
+        'Content-Type': 'application/json',
+        'User-Agent': 'my-integration/my-integration-version'
+    }
+   
     data = {
         "end_device": {
             "ids": request_params,
-            "join_server_address": "thethings.example.com",
-            "network_server_address": "thethings.example.com",
-            "application_server_address": "thethings.example.com"
+            "join_server_address": "symrec.nam1.cloud.thethings.industries",
+            "network_server_address": "symrec.nam1.cloud.thethings.industries",
+            "application_server_address": "symrec.nam1.cloud.thethings.industries"
             },
         "field_mask": {
             "paths": [
@@ -46,8 +57,8 @@ def ttn_view(request):
 
     try:
         r = requests.post(
-            'https://thethings.example.com/api/v3/applications/app1/devices', 
-            data=post_payload)
+            'https://symrec.eu1.cloud.thethings.industries/api/v3/applications/abctest/devices', 
+            data=post_payload, headers=headers)
     except requests.exceptions.RequestException as e:
         # raise SystemExit(e)
         print("Error: TTN Post")
