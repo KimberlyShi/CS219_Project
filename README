@@ -18,6 +18,18 @@ Additional pip installs:
 - `pip install python-dotenv`
 
 To run the server: 
+python ./manage.py runserver
+
+
+
+STEPS TO SETUP ttn-lw-cli FOR DEVICES PAGE:
+1. brew install ttn-lw-cli
+2. ttn-lw-cli use symrec.nam1.cloud.thethings.industries
+3. ttn-lw-cli login --callback=false
+    - a new page will open, use provided login and pw, then copy the code
+4. ttn-lw-cli devices list --application-id abctest
+
+
 
 1. Navigate to `cloud_site_folder`
 2. Run `python ./manage.py runserver`

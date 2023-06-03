@@ -2,19 +2,29 @@
 <link rel="stylesheet" href="{% static 'styled_table.css' %}">
 
 <h1 class = "title", id="title">Registered Devices</h1>
-
+<!-- {% for d in devices %}
+<p>{{d.ids}}</p>
+{% endfor %} -->
 <table class="styled-table">
     <thead>
         <tr>
+            <th>Device Network</th>
             <th>Device ID</th>
-            <th>Network</th>
+            <th>Dev EUI</th>
+            <th>Join EUI</th>
+            <th>Creation Date</th>
+            <th>Last Updated</th>
         </tr>
     </thead>
     <tbody>
-        {% for d in device %}
+        {% for d in devices %}
         <tr>
-            <td>{{d.d_id}}</td>
-            <td>{{d.network}}</td>
+            <td>{{d.device_network}}</td>
+            <td>{{d.ids.device_id}}</td>
+            <td>{{d.ids.dev_eui}}</td>
+            <td>{{d.ids.join_eui}}</td>
+            <td>{{d.ids.created_at}}</td>
+            <td>{{d.ids.updated_at}}</td>
         </tr>
         {% endfor %}
     </tbody>

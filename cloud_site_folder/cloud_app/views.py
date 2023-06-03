@@ -4,7 +4,7 @@ from django.http import HttpResponse
 
 from .models import Devices
 
-import requests, json
+import requests, json, subprocess, ast
 
 import os
 from twilio.rest import Client
@@ -83,9 +83,24 @@ def index(request):
 
 
 
+
+def getTTNDevices():
+    # print(os.system("ttn-lw-cli use symrec.nam1.cloud.thethings.industries"))
+    # print(os.system("ttn-lw-cli login --callback=false"))
+    devices = subprocess.Popen("ttn-lw-cli end-device list --application-id abctest", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    output, _ = devices.communicate()
+    dict_str = output.decode("UTF-8")
+    devices_list = ast.literal_eval(dict_str)
+    for device in devices_list:
+        device["device_network"] = "TTN"
+    return devices_list
+
+
+
 def devices_view(request):
-    print(Devices.objects.all())
-    return render(request, 'devices.html', {'device': Devices.objects.all()})
+    ttn_devices = getTTNDevices()
+    # return render(request, 'devices.html', {'devices': Devices.objects.all()})
+    return render(request, 'devices.html', {'devices': ttn_devices})
 
 def twilio_view(request):
     # account_sid = request.GET.get('account_sid', False) # os.getenv('TWILIO_ACCOUNT_SID')
@@ -128,4 +143,3 @@ def twilio_view(request):
         print("exception: ")
         print(e)
     return render(request, 'twilio.html',  {"data" : output_json} )
-
