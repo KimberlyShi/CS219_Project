@@ -19,6 +19,9 @@ def home_view(request):
 
 def ttn_view(request):
     # https://www.thethingsindustries.com/docs/the-things-stack/interact/api/#multi-step-actions
+
+    load_dotenv()
+    ttn_api_key = os.getenv('TTN_API_KEY')
     request_params = {
         "device_id": request.GET.get('device_id', False),
         "dev_eui": request.GET.get('device_eui', False),
@@ -29,7 +32,7 @@ def ttn_view(request):
     # To register a device newdev1 in application app1, first, register the DevEUI, JoinEUI and cluster addresses in the Identity Server. 
     headers = {
         'Accept': 'application/json',
-        'Authorization': 'Bearer NNSXS.V2E6Z34WKY7OWEKMBNCHWZMV5PPEDNT7ZNEXLBY.3OHCZN4WUOUSN2ZXB6NP54R6E7ANC7HJIDVD6YIIFNIFYVU3AFSQ',
+        'Authorization': 'Bearer ' + ttn_api_key,
         'Content-Type': 'application/json',
         'User-Agent': 'my-integration/my-integration-version'
     }
