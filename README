@@ -14,7 +14,7 @@ STEPS TAKEN TO SET UP THIS DJANGO PROJECT:
 
 
 Additional pip installs: 
-- 'pip install twilio` 
+- `pip install twilio` 
 - `pip install python-dotenv`
 
 To run the server: 
