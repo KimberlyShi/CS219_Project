@@ -14,3 +14,6 @@ STEPS TAKEN TO SET UP THIS DJANGO PROJECT:
 
 To run the server: 
 python ./manage.py runserver
+
+pip installs: 
+pip install python-dotenv
