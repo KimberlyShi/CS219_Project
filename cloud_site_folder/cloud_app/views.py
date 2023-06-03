@@ -62,6 +62,8 @@ def ttn_view(request):
     print(post_payload)
 
     # TODO: input sanitation and add error message
+
+    output_status = "Have not submitted form yet"
     
     if(form_device_id and form_device_eui and form_join_eui):
         try:
@@ -69,6 +71,14 @@ def ttn_view(request):
                 'https://symrec.eu1.cloud.thethings.industries/api/v3/applications/abctest/devices', 
                 data=post_payload, headers=headers)
             print(r)
+
+            # sample status code: <Response [200]>
+            output_status = r.text
+            if r.status_code == 200:
+                return render(request, "devices.html")
+            else:
+                output_status = "Device failed to register. Please make sure your device information is correct."
+
         # except requests.exceptions.RequestException as e:
         except Exception as e:
             # raise SystemExit(e)
@@ -76,7 +86,7 @@ def ttn_view(request):
     else:
         print("Form not completed yet")
 
-    return render(request, "ttn.html")
+    return render(request, "ttn.html", {"output_status": output_status})
 
 def index(request):
     return HttpResponse("Hello World")
