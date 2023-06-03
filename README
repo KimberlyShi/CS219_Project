@@ -1,16 +1,21 @@
 STEPS TAKEN TO SET UP THIS DJANGO PROJECT: 
 
 1. if you haven't already, create a conda environment with python=3.9:
-    conda create --name cloud python=3.9
+    conda create --name cloud python=3.9
 2. activate your conda environment
-    conda activate cloud
+    conda activate cloud
 3. pip3 install django
 4. echo $PYTHONPATH
-    if it looks wrong, export PYTHONPATH=/usr/local/lib/python3.9/site-packages
+    if it looks wrong, export PYTHONPATH=/usr/local/lib/python3.9/site-packages
 5. django-admin startproject cloud_site
 6. cd cloud_site
 7. in manage.py, potentially change #!/usr/bin/env python --> #!/usr/bin/env python3
 8. ./manage.py startapp cloud_app
+
+
+Additional pip installs: 
+- `pip install twilio` 
+- `pip install python-dotenv`
 
 To run the server: 
 python ./manage.py runserver
@@ -23,3 +28,12 @@ STEPS TO SETUP ttn-lw-cli FOR DEVICES PAGE:
 3. ttn-lw-cli login --callback=false
     - a new page will open, use provided login and pw, then copy the code
 4. ttn-lw-cli devices list --application-id abctest
+
+
+
+1. Navigate to `cloud_site_folder`
+2. Run `python ./manage.py runserver`
+
+pip installs: 
+pip install python-dotenv
+pip install twilio

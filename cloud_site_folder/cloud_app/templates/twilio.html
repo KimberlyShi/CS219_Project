@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<link rel="stylesheet" href="{% static 'home.css' %}">
+<head>
+   <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+<input type="checkbox" id="active">
+   <label for="active" class="menu-btn"><span></span></label>
+   <label for="active" class="close"></label>
+   <div class="wrapper">
+      <ul>
+         <li><a href="/">Home</a></li>
+         <li><a href="/ttn">TTN</a></li>
+         <li><a href="">Twilio</a></li>
+         <li><a href="/devices">Devices</a></li>
+      </ul>
+   </div>
+   <div class="content">
+      <div class="title">
+         Twilio Page
+      </div>
+      <p>
+         Twilio Page
+      </p>
+      {% comment %} account_sid = os.getenv('TWILIO_ACCOUNT_SID')
+    auth_token = os.getenv('TWILIO_AUTH_TOKEN') {% endcomment %}
+      <form method="GET" action="" id="survey-form" name="survey-form">
+        <fieldset>
+           <label for="account_sid" id="account_sid-label">
+              twilio account SID currently hardcoded in .env file
+              {% comment %} <input class="" type="text" id="account_sid" name="account_sid" placeholder="Enter your Account SID (required)" required /> {% endcomment %}
+           </label>
+        </fieldset>
+        <fieldset>
+           <label for="auth_token" id="auth_token-label">
+              auth token currently hardcoded in .env file
+              {% comment %} <input class="" type="text" id="auth_token" name="auth_token" placeholder="Enter your Account Auth Token (required)" required /> {% endcomment %}
+           </label>
+        </fieldset>
+        <fieldset>
+           <label for="iccid" id="iccid-label">
+                iccid
+              <input class="" type="text" id="iccid" name="iccid" placeholder="Enter your device iccid (required)" required />
+           </label>
+        </fieldset>
+        <fieldset>
+           <label for="registration_code" id="registration_code-label">
+            registration code
+           <input class="" type="text" id="registration_code" name="registration_code" placeholder="Enter your registration code (required)" required />
+           </label>
+        </fieldset>
+        <button id="submit" type="submit" class="btn">Submit the form</button>
+     </form>
+     <div>
+        <h3>Devices</h3>
+        <h3>{{data}}</h3>
+    </div>
+    {% comment %} <a href='{% url 'register_device' %}'><button>register device</button></a> {% endcomment %}
+   </div>
+</body>
