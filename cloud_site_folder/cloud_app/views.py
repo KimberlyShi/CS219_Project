@@ -22,11 +22,14 @@ def ttn_view(request):
 
     load_dotenv()
     ttn_api_key = os.getenv('TTN_API_KEY')
+    form_device_id = request.GET.get('device_id', False)
+    form_device_eui = request.GET.get('device_eui', False)
+    form_join_eui = request.GET.get('join_eui', False)
+
     request_params = {
-        "device_id": request.GET.get('device_id', False),
-        "dev_eui": request.GET.get('device_eui', False),
-        "join_eui": request.GET.get('join_eui', False),
-        # "join_server_address": request.GET['join_server_address'],
+        "device_id": form_device_id ,
+        "dev_eui": form_device_eui,
+        "join_eui": form_join_eui
     }
 
     # To register a device newdev1 in application app1, first, register the DevEUI, JoinEUI and cluster addresses in the Identity Server. 
@@ -58,13 +61,20 @@ def ttn_view(request):
     post_payload = json.dumps(data)
     print(post_payload)
 
-    try:
-        r = requests.post(
-            'https://symrec.eu1.cloud.thethings.industries/api/v3/applications/abctest/devices', 
-            data=post_payload, headers=headers)
-    except requests.exceptions.RequestException as e:
-        # raise SystemExit(e)
-        print("Error: TTN Post")
+    # TODO: input sanitation and add error message
+    
+    if(form_device_id and form_device_eui and form_join_eui):
+        try:
+            r = requests.post(
+                'https://symrec.eu1.cloud.thethings.industries/api/v3/applications/abctest/devices', 
+                data=post_payload, headers=headers)
+            print(r)
+        # except requests.exceptions.RequestException as e:
+        except Exception as e:
+            # raise SystemExit(e)
+            print("Error: TTN Post")
+    else:
+        print("Form not completed yet")
 
     return render(request, "ttn.html")
 
