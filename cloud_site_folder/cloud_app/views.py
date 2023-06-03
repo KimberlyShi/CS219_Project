@@ -75,8 +75,13 @@ def register_device(request):
     client = Client(account_sid, auth_token)
 
     try:
-        sim = client.supersim.v1.sims.create(iccid='89883070000123456789', registration_code='H3LL0W0RLD')
-        print(sim.sid)
-    except:
-        print("bad user or token")
+        # sim = client.supersim.v1.sims.create(iccid='89883070000004578975', registration_code='H3LL0W0RLD')
+        # print("registered device: ")
+        # print(sim.sid)
+        sim = client.supersim.v1.sims('HS292982d1e4647acb2966c69425e06be3').fetch()
+        print("status:", sim.status)
+        print("fleet:", sim.fleet)
+    except Exception as e: 
+        print("exception: ")
+        print(e)
     return render(request, "twilio.html")
