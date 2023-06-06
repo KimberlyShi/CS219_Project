@@ -127,7 +127,7 @@ def getTTNDevices():
 
         # if update and create time are similar, they are probably the same
         if (update_time - create_time < timedelta(seconds=0.1)):
-            device["updated_at"] = None
+            device["updated_at"] = "Never"
         else:
             device["updated_at"] = create_time
         print(device)

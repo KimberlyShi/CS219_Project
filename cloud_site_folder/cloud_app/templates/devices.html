@@ -21,9 +21,12 @@
             <td>{{d.ids.device_id|default:"None"}}</td>
             <td>{{d.ids.dev_eui|default:"None"}}</td>
             <td>{{d.ids.join_eui|default:"None"}}</td>
-            <td>{{d.created_at|date:"G:i M d, Y"|default:""}}</td>
-            <td>{{d.updated_at|date:"G:i M d, Y"|default_if_none:"Never"}}</td>
-
+            <td>{{d.created_at|date:"G:i M d, Y"|default:"None"}}</td>
+            {% if d.updated_at == "Never"%}
+                <td>{{d.updated_at}}</td>
+            {% else %}
+                <td>{{d.updated_at|date:"G:i M d, Y"|default_if_none:"Never"}}</td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>
