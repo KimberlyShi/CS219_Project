@@ -1,12 +1,18 @@
+import requests
+import json
+import subprocess
+import ast
+import os
+from datetime import datetime, timedelta
+import time
+import pytz
+
+
+
 from django.shortcuts import render
-
 from django.http import HttpResponse
-
 from .models import Devices
 
-import requests, json, subprocess, ast
-
-import os
 from twilio.rest import Client
 from dotenv import load_dotenv
 
@@ -97,12 +103,35 @@ def index(request):
 def getTTNDevices():
     # print(os.system("ttn-lw-cli use symrec.nam1.cloud.thethings.industries"))
     # print(os.system("ttn-lw-cli login --callback=false"))
-    devices = subprocess.Popen("ttn-lw-cli end-device list --application-id abctest", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    devices = subprocess.Popen(
+        "ttn-lw-cli end-device list --application-id abctest", 
+        stdout=subprocess.PIPE, 
+        stderr=subprocess.PIPE, 
+        shell=True
+    )
+    
+    #converts returned bytes object into list of dicts
     output, _ = devices.communicate()
     dict_str = output.decode("UTF-8")
-    devices_list = ast.literal_eval(dict_str)
+    devices_list = ast.literal_eval(dict_str) 
+
     for device in devices_list:
         device["device_network"] = "TTN"
+
+        create_time = device["created_at"]
+        create_time = datetime.strptime(create_time, "%Y-%m-%dT%H:%M:%S.%fZ")
+        device["created_at"] = create_time
+
+        update_time = device["updated_at"]
+        update_time = datetime.strptime(update_time, "%Y-%m-%dT%H:%M:%S.%fZ")
+
+        # if update and create time are similar, they are probably the same
+        if (update_time - create_time < timedelta(seconds=0.1)):
+            device["updated_at"] = None
+        else:
+            device["updated_at"] = create_time
+        print(device)
+
     return devices_list
 
 
