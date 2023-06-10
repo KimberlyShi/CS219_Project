@@ -28,6 +28,7 @@
       {% comment %} account_sid = os.getenv('TWILIO_ACCOUNT_SID')
     auth_token = os.getenv('TWILIO_AUTH_TOKEN') {% endcomment %}
       <form method="GET" action="" id="survey-form" name="survey-form">
+        <p>{{ output_status }}</p>
         <fieldset>
            <label for="account_sid" id="account_sid-label">
               twilio account SID currently hardcoded in .env file
@@ -54,10 +55,6 @@
         </fieldset>
         <button id="submit" type="submit" class="btn">Submit the form</button>
      </form>
-     <div>
-        <h3>Devices</h3>
-        <h3>{{data}}</h3>
-    </div>
     {% comment %} <a href='{% url 'register_device' %}'><button>register device</button></a> {% endcomment %}
    </div>
 </body>

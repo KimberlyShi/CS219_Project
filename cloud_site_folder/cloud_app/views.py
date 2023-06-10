@@ -6,8 +6,8 @@ import os
 from datetime import datetime, timedelta
 import time
 import pytz
-
-
+import logging
+import traceback
 
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -16,12 +16,10 @@ from .models import Devices
 from twilio.rest import Client
 from dotenv import load_dotenv
 
+logger = logging.getLogger('views')
+
 def home_view(request):
     return render(request, "home.html")
-
-# def ttn_view(request):
-#     # ttn_status = "ok"
-#     return render(request, "ttn.html")
 
 def ttn_view(request):
     # https://www.thethingsindustries.com/docs/the-things-stack/interact/api/#multi-step-actions
@@ -94,12 +92,6 @@ def ttn_view(request):
 
     return render(request, "ttn.html", {"output_status": output_status})
 
-def index(request):
-    return HttpResponse("Hello World")
-
-
-
-
 def getTTNDevices():
     devices = subprocess.Popen(
         "ttn-lw-cli end-device list --application-id abctest", 
@@ -131,12 +123,34 @@ def getTTNDevices():
 
     return devices_list
 
+def getTwilioDevices():
+    load_dotenv()
+    account_sid = os.getenv('TWILIO_ACCOUNT_SID')
+    auth_token = os.getenv('TWILIO_AUTH_TOKEN')
+    client = Client(account_sid, auth_token)
+
+    sims = client.supersim.v1.sims.list()
+    devices_list = [
+        {
+            "device_network": "Twilio",
+            "created_at": sim.date_created,
+            "updated_at": sim.date_updated,
+            "sid": sim.sid,
+            "iccid": sim.iccid,
+            "status": str(sim.status),
+        } for sim in sims
+    ]
+    return devices_list
 
 
 def devices_view(request):
     ttn_devices = getTTNDevices()
-    # return render(request, 'devices.html', {'devices': Devices.objects.all()})
-    return render(request, 'devices.html', {'devices': ttn_devices})
+    twilio_devices = getTwilioDevices()
+    return render(
+        request,
+        'devices.html',
+        {'ttn_devices': ttn_devices, 'twilio_devices': twilio_devices}
+    )
 
 def twilio_view(request):
     # account_sid = request.GET.get('account_sid', False) # os.getenv('TWILIO_ACCOUNT_SID')
@@ -148,34 +162,18 @@ def twilio_view(request):
 
     iccid = request.GET.get('iccid', False) # '89883070000004578983'
     registration_code = request.GET.get('registration_code', False) # 'XSTSYBZXQC'
-    debug = True
-    if debug:
-        print("account_sid: ", account_sid)
-        print("auth_token: ", auth_token)
-        print("iccid: ", iccid)
-        print("registration_code: ", registration_code)
-    output_json = None
-    data = {}
-    data["devices"] = []
+
+    logger.debug(f"Account SID: {account_sid}")
+    logger.debug(f"Auth token: {auth_token}")
+    logger.debug(f"SIM ICCID: {iccid}")
+    logger.debug(f"Registration code: {registration_code}")
+
     # try device registration
     try: 
         sim = client.supersim.v1.sims.create(iccid=iccid, registration_code=registration_code)
-        print("registered device: ")
-        print(sim.sid)
-    except Exception as e:
-        print("exception for device registration: ", e)
+        logger.debug(f'Registed sim device with ssid "{sim.sid}"')
+        return devices_view(request)
+    except Exception:
+        logger.warning(f'Failed to register sim device with iccid "{iccid}": {traceback.format_exc()}')
+        return render(request, 'twilio.html',  {"output_status" : "Failed to register SIM device. Please make sure your device information is correct and that the device is not already registered."})
 
-    # api call to retrieve devices on twilio
-    try:
-        sid = "HS292982d1e4647acb2966c69425e06be3"
-        sim = client.supersim.v1.sims(sid).fetch()
-        data["devices"].append({"sid": sid, "status": sim.status})
-        print("status:", sim.status)
-        # print("fleet:", sim.fleet)
-        output_json = json.dumps(data)
-        print("data: ", data)
-        print("json: ", output_json)
-    except Exception as e: 
-        print("exception: ")
-        print(e)
-    return render(request, 'twilio.html',  {"data" : output_json} )

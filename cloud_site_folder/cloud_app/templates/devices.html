@@ -3,6 +3,7 @@
 
 <h1 class = "title", id="title">Registered Devices</h1>
 
+<!-- TTN TABLE -->
 <table class="styled-table">
     <thead>
         <tr>
@@ -15,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for d in devices %}
+        {% for d in ttn_devices %}
         <tr>
             <td>{{d.device_network}}</td>
             <td>{{d.ids.device_id|default:"None"}}</td>
@@ -27,6 +28,32 @@
             {% else %}
                 <td>{{d.updated_at|date:"G:i M d, Y"|default_if_none:"Never"}}</td>
             {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- TWILIO TABLE -->
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>Device Network</th>
+            <th>Device ICCID</th>
+            <th>SID</th>
+            <th>Status</th>
+            <th>Creation Date(UTC)</th>
+            <th>Last Updated(UTC)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for d in twilio_devices %}
+        <tr>
+            <td>{{d.device_network}}</td>
+            <td>{{d.iccid|default:"None"}}</td>
+            <td>{{d.sid|default:"None"}}</td>
+            <td>{{d.status|default:"None"}}</td>
+            <td>{{d.created_at|date:"G:i M d, Y"|default:"None"}}</td>
+            <td>{{d.updated_at|date:"G:i M d, Y"|default_if_none:"Never"}}</td>
         </tr>
         {% endfor %}
     </tbody>
