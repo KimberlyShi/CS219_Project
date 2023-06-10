@@ -81,9 +81,7 @@ def ttn_view(request):
             # sample status code: <Response [200]>
             output_status = r.text
             if r.status_code == 200:
-                print("REQUEST: ", request)
-                # return render(request, "devices.html")
-                return devices_view()
+                return devices_view(request)
             else:
                 output_status = "Status: Device failed to register. Please make sure your device information is correct and that the device is not already registered."
 
@@ -103,8 +101,6 @@ def index(request):
 
 
 def getTTNDevices():
-    # print(os.system("ttn-lw-cli use symrec.nam1.cloud.thethings.industries"))
-    # print(os.system("ttn-lw-cli login --callback=false"))
     devices = subprocess.Popen(
         "ttn-lw-cli end-device list --application-id abctest", 
         stdout=subprocess.PIPE, 
@@ -132,7 +128,6 @@ def getTTNDevices():
             device["updated_at"] = "Never"
         else:
             device["updated_at"] = create_time
-        print(device)
 
     return devices_list
 
@@ -140,8 +135,8 @@ def getTTNDevices():
 
 def devices_view(request):
     ttn_devices = getTTNDevices()
-    return render(request, 'devices.html', {'devices': Devices.objects.all()})
-    # return render(request, 'devices.html', {'devices': ttn_devices})
+    # return render(request, 'devices.html', {'devices': Devices.objects.all()})
+    return render(request, 'devices.html', {'devices': ttn_devices})
 
 def twilio_view(request):
     # account_sid = request.GET.get('account_sid', False) # os.getenv('TWILIO_ACCOUNT_SID')
