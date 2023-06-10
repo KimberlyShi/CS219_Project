@@ -1,3 +1,6 @@
+@import './constants.css';
+
+
 .m-b-xs {
     margin-bottom: 2%;
   }
@@ -20,7 +23,8 @@
   
   body {
     padding: 2% 0;
-    background-color: #37404a;
+    background-color: var(--background-color);
+    /* background-color: #37404a; */
     /* background-color: #FFF; */
   }
   
@@ -28,7 +32,8 @@
     font-family: "Roboto", sans-serif;
     font-size: 2.2em;
     font-weight: 300;
-    color: #C70BFE;
+    color: var(--accent-color);
+    /* color: #C70BFE; */
     text-transform: uppercase;
   }
   
@@ -36,17 +41,20 @@
     font-family: "Roboto", sans-serif;
     font-size: 1.1em;
     font-weight: 300;
-    color: #FFF;
+    color: var(--text-color);
+    /* color: #FFF; */
     /* color: #333; */
   }
   
   a {
-    color: #FFF;
+    color: var(--text-color);
+    /* color: #FFF; */
     /* color: #333; */
   }
   a:hover {
     text-decoration: none;
-    color: #FFF;
+    color: var(--text-color);
+    /* color: #FFF; */
     /* color: #333; */
   }
   
@@ -56,8 +64,10 @@
     margin-bottom: 2%;
     font-family: "Roboto", sans-serif;
     font-size: 1.1em;
-    font-weight: 300;
-    color: #FFF;
+    /* font-weight: 300; */
+    color: var(--text-color);
+    font-weight: bold;
+    /* color: #FFF; */
     /* color: #333; */
     letter-spacing: 0.5px;
   }
@@ -88,14 +98,17 @@
     background: transparent;
     border: none;
     outline: none;
-    border-bottom: 2px solid #FFF;
+    border-bottom: 2px solid var(--text-color);
+    /* border-bottom: 2px solid #FFF; */
     /* border-bottom: 2px solid #333; */
     font-size: 1.1em;
     font-weight: 300;
-    color: #C70BFE;
+    color: var(--accent-color);
+    /* color: #C70BFE; */
   }
   #survey-form input:focus {
-    border-color: #C70BFE;
+    border-color: var(--accent-color);
+    /* border-color: #C70BFE; */
   }
   #survey-form [type=checkbox],
   #survey-form [type=radio] {
@@ -132,7 +145,8 @@
   }
   #survey-form [type=checkbox]:hover,
   #survey-form [type=radio]:hover {
-    border-color: #C70BFE;
+    /* border-color: #C70BFE; */
+    border-color: var(--accent-color);
   }
   #survey-form [type=checkbox]:checked:before,
   #survey-form [type=radio]:checked:before {
@@ -147,7 +161,8 @@
     font-family: "Glyphicons Halflings";
     line-height: 20px;
     font-size: 15px;
-    color: #C70BFE;
+    /* color: #C70BFE; */
+    color: var(--accent-color);
   }
   #survey-form [type=checkbox]:focus,
   #survey-form [type=radio]:focus {
@@ -177,7 +192,9 @@
     /* background-color: #FFF; */
     border: 2px solid #FFF;
     /* border: 2px solid #333; */
-    color: #C70BFE;
+    /* color: #C70BFE; */
+    color: var(--accent-color);
+
   }
   #survey-form select option {
     padding: 5px 10px;
@@ -185,7 +202,8 @@
     cursor: pointer;
   }
   #survey-form select option:hover {
-    background-color: #C70BFE;
+    /* background-color: #C70BFE; */
+    background-color: var(--accent-color);
   }
   #survey-form textarea {
     resize: none;
@@ -193,7 +211,8 @@
     padding: 10px 10px 0px 20px;
     width: 100%;
     height: 90px;
-    color: #C70BFE;
+    /* color: #C70BFE; */
+    color: var(--accent-color);
     background-color: #37404a;
     /* background-color: #FFF; */
     border: 2px solid #FFF;
@@ -208,11 +227,13 @@
     text-transform: uppercase;
     text-decoration: none;
     cursor: pointer;
-    border: 3px solid #C70BFE;
+    /* border: 3px solid #C70BFE; */
+    border: 3px solid var(--accent-color);
     border-radius: 0;
     font-weight: 500;
     font-size: 1.2em;
-    color: #C70BFE;
+    /* color: #C70BFE; */
+    color: var(--accent-color);
     text-align: center;
     background: none;
     transition: color 0.25s ease;
@@ -224,14 +245,15 @@
     left: 0;
     width: 0;
     height: 100%;
-    background-color: #C70BFE;
+    background-color: var(--accent-color);
+    /* background-color: #C70BFE; */
     transform-origin: left;
     transition: width 0.5s ease;
     z-index: -1;
   }
   #survey-form .btn:hover {
-    color: #37404a;
-    /* color: #FFF; */
+    /* color: #37404a; */
+    color: #FFF;
   }
   #survey-form .btn:hover:after {
     width: 100%;
