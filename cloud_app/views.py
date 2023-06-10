@@ -14,9 +14,12 @@ from django.http import HttpResponse
 from .models import Devices
 
 from twilio.rest import Client
+from twilio.base.exceptions import TwilioException
 from dotenv import load_dotenv
 
 logger = logging.getLogger('views')
+
+TTN_POST_URL = 'https://symrec.eu1.cloud.thethings.industries/api/v3/applications/abctest/devices'
 
 def home_view(request):
     return render(request, "home.html")
@@ -66,31 +69,32 @@ def ttn_view(request):
     print(post_payload)
 
     # TODO: input sanitation and add error message
-
-    output_status = "Status: Have not submitted form yet"
     
-    if(form_device_id and form_device_eui and form_join_eui):
-        try:
-            r = requests.post(
-                'https://symrec.eu1.cloud.thethings.industries/api/v3/applications/abctest/devices', 
-                data=post_payload, headers=headers)
-            print(r)
+    if not form_device_id or not form_device_eui or not form_join_eui:
+        logger.debug("Form not completed yet")
+        return render(request, "ttn.html")
+    try:
+        r = requests.post(TTN_POST_URL, data=post_payload, headers=headers)
+        resp_json = r.json()
+        logger.debug('r.status_code', r.status_code)
+        logger.debug('r.text', r.text)
 
-            # sample status code: <Response [200]>
-            output_status = r.text
-            if r.status_code == 200:
-                return devices_view(request)
-            else:
-                output_status = "Status: Device failed to register. Please make sure your device information is correct and that the device is not already registered."
+        # output_status = r.text
+        if r.status_code == 200:
+            return devices_view(request)
+        else:
+            return render(
+                request,
+                "ttn.html",
+                {"error": resp_json['details'][0]['message_format']}
+            )
 
-        # except requests.exceptions.RequestException as e:
-        except Exception as e:
-            # raise SystemExit(e)
-            print("Error: TTN Post")
-    else:
-        print("Form not completed yet")
+            # output_status = "Status: Device failed to register. Please make sure your device information is correct and that the device is not already registered."
 
-    return render(request, "ttn.html", {"output_status": output_status})
+    except Exception:
+        logger.debug(f"Error: TTN Post.\n{traceback.format_exc()}")
+        return render(request, "ttn.html", {"error": traceback.format_exc()})
+
 
 def getTTNDevices():
     devices = subprocess.Popen(
@@ -157,8 +161,12 @@ def twilio_view(request):
     # auth_token = request.GET.get('auth_token', False) # os.getenv('TWILIO_AUTH_TOKEN')
     load_dotenv()
     account_sid = os.getenv('TWILIO_ACCOUNT_SID')
-    auth_token = os.getenv('TWILIO_AUTH_TOKEN')    
-    client = Client(account_sid, auth_token)
+    auth_token = os.getenv('TWILIO_AUTH_TOKEN')
+
+    try:
+        client = Client(account_sid, auth_token)
+    except TwilioException:
+        return render(request, 'twilio.html', {'error': 'Invalid Twilio credentials.'})
 
     iccid = request.GET.get('iccid', False) # '89883070000004578983'
     registration_code = request.GET.get('registration_code', False) # 'XSTSYBZXQC'
