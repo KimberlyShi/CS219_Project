@@ -1,4 +1,4 @@
- 
+@import './constants.css';
 /* *{
      margin: 0;
      padding: 0;
@@ -137,7 +137,8 @@
     transform: scaleY(1);
 }
 .wrapper ul li a:hover{
-    color: #1a73e8;
+    /* color: #1a73e8; */
+    color: var(--menu-highlight-color);
 }
 input[type="checkbox"]{
     display: none;

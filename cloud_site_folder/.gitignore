@@ -1,5 +1,7 @@
 **/.DS_Store
 .env
 
+.ttn-lw-cli.yml
+
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -69,7 +69,7 @@ def ttn_view(request):
 
     # TODO: input sanitation and add error message
 
-    output_status = "Have not submitted form yet"
+    output_status = "Status: Have not submitted form yet"
     
     if(form_device_id and form_device_eui and form_join_eui):
         try:
@@ -81,9 +81,11 @@ def ttn_view(request):
             # sample status code: <Response [200]>
             output_status = r.text
             if r.status_code == 200:
-                return render(request, "devices.html")
+                print("REQUEST: ", request)
+                # return render(request, "devices.html")
+                return devices_view()
             else:
-                output_status = "Device failed to register. Please make sure your device information is correct."
+                output_status = "Status: Device failed to register. Please make sure your device information is correct and that the device is not already registered."
 
         # except requests.exceptions.RequestException as e:
         except Exception as e:
@@ -138,8 +140,8 @@ def getTTNDevices():
 
 def devices_view(request):
     ttn_devices = getTTNDevices()
-    # return render(request, 'devices.html', {'devices': Devices.objects.all()})
-    return render(request, 'devices.html', {'devices': ttn_devices})
+    return render(request, 'devices.html', {'devices': Devices.objects.all()})
+    # return render(request, 'devices.html', {'devices': ttn_devices})
 
 def twilio_view(request):
     # account_sid = request.GET.get('account_sid', False) # os.getenv('TWILIO_ACCOUNT_SID')
