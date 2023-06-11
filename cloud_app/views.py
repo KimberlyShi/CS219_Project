@@ -184,4 +184,3 @@ def twilio_view(request):
     except Exception:
         logger.warning(f'Failed to register sim device with iccid "{iccid}": {traceback.format_exc()}')
         return render(request, 'twilio.html',  {"output_status" : "Failed to register SIM device. Please make sure your device information is correct and that the device is not already registered."})
-

@@ -36,6 +36,14 @@
     /* color: #C70BFE; */
     text-transform: uppercase;
   }
+
+  h2 {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--text-color);
+    text-transform: uppercase;
+  }
   
   p {
     font-family: "Roboto", sans-serif;
