@@ -23,13 +23,8 @@ ttn-lw-cli login --callback=false
 ```
 
 # Running the project
-1. Start the Django project.
+1. Launch the server.
 ```
-django-admin startproject cloud_site
-```
-
-2. Launch the server.
-```
-./manage.py startapp cloud_app
+python ./manage.py runserver
 ```
 Now, you should be able to access your development server at `http://127.0.0.1:8000/`!
