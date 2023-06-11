@@ -21,6 +21,7 @@ Then, login to TTN using the CLI. This will open a browser window where you can 
 ```
 ttn-lw-cli login --callback=false
 ```
+4. Upload your .env file containing values for TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, and TTN_API_KEY into the root folder of this project.
 
 # Running the project
 1. Launch the server.
