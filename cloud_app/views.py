@@ -190,12 +190,13 @@ def devices_view(request):
     combined_devices = []
     for device in ttn_devices:
         device["device_id"] = device["ids"]["device_id"]
-        combined_devices.append(device)
         device["created_at"] = device["created_at"].replace(tzinfo=None)
+        combined_devices.append(device)
 
     for device in twilio_devices:
-        combined_devices.append(device)
         device["created_at"] = device["created_at"].replace(tzinfo=None)
+        device["device_id"] = device["iccid"]
+        combined_devices.append(device)
 
 
     combined_devices = sorted(combined_devices, key=lambda x: x["created_at"])
