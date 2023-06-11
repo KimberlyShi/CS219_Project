@@ -6,7 +6,8 @@
   }
   
   .m-b-md {
-    margin-bottom: 10%;
+    /* margin-bottom: 10%; */
+    margin-bottom: 2%;
   }
   
   .m-t-xs {
@@ -50,8 +51,6 @@
     font-size: 1.1em;
     font-weight: 300;
     color: var(--text-color);
-    /* color: #FFF; */
-    /* color: #333; */
   }
   
   a {
@@ -72,11 +71,8 @@
     margin-bottom: 2%;
     font-family: "Roboto", sans-serif;
     font-size: 1.1em;
-    /* font-weight: 300; */
     color: var(--text-color);
     font-weight: bold;
-    /* color: #FFF; */
-    /* color: #333; */
     letter-spacing: 0.5px;
   }
   #survey-form input::-webkit-input-placeholder {
@@ -93,6 +89,8 @@
   }
   #survey-form input,
   #survey-form select {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.1em;
     display: block;
     width: 100%;
     overflow: hidden;
@@ -141,14 +139,15 @@
     height: 23px;
     width: 23px;
     transition: all 0.15s ease-out 0s;
-    background: #37404a;
+    background: #acb1b8;
     /* background: #FFF; */
     color: #FFF;
     /* color: #333; */
     cursor: pointer;
     outline: none;
     z-index: 1000;
-    border: 1px solid #FFF;
+    /* border: 1px solid #FFF; */
+    border: 2px solid #333;
     /* border: 1px solid #333; */
   }
   #survey-form [type=checkbox]:hover,
@@ -196,8 +195,8 @@
   #survey-form select {
     height: 40px;
     padding-left: 5px;
-    background-color: #37404a;
-    /* background-color: #FFF; */
+    /* background-color: #37404a; */
+    background-color: #77737390;
     border: 2px solid #FFF;
     /* border: 2px solid #333; */
     /* color: #C70BFE; */

@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 
 logger = logging.getLogger('views')
 
-TTN_POST_URL = 'https://symrec.eu1.cloud.thethings.industries/api/v3/applications/abctest/devices'
+
 
 def home_view(request):
     return render(request, "home.html")
@@ -28,10 +28,35 @@ def ttn_view(request):
     # https://www.thethingsindustries.com/docs/the-things-stack/interact/api/#multi-step-actions
 
     load_dotenv()
+
+    applications = subprocess.Popen(
+    "ttn-lw-cli applications list",
+    stdout=subprocess.PIPE, 
+    stderr=subprocess.PIPE, 
+    shell=True
+    )
+    output, _ = applications.communicate()
+    dict_str = output.decode("UTF-8")
+    application_list = ast.literal_eval(dict_str)
+
+    app_names = []
+    for app in application_list:
+        app_name = app["ids"]["application_id"]
+        app_names.append(app_name)
+
     ttn_api_key = os.getenv('TTN_API_KEY')
+
     form_device_id = request.GET.get('device_id', False)
     form_device_eui = request.GET.get('device_eui', False)
     form_join_eui = request.GET.get('join_eui', False)
+
+    application = request.GET.get('dropdown', False)
+
+    ttn_post_url = 'https://symrec.eu1.cloud.thethings.industries/api/v3/applications/invalid/devices'
+
+    if application is not False:
+        ttn_post_url = 'https://symrec.eu1.cloud.thethings.industries/api/v3/applications/' + str(application) +'/devices'
+    print(ttn_post_url)
 
     request_params = {
         "device_id": form_device_id ,
@@ -66,34 +91,35 @@ def ttn_view(request):
     }
 
     post_payload = json.dumps(data)
-    print(post_payload)
+    # print(post_payload)
 
     # TODO: input sanitation and add error message
     
     if not form_device_id or not form_device_eui or not form_join_eui:
         logger.debug("Form not completed yet")
-        return render(request, "ttn.html")
+        return render(request, "ttn.html", {"app_names": app_names})
     try:
-        r = requests.post(TTN_POST_URL, data=post_payload, headers=headers)
+        r = requests.post(ttn_post_url, data=post_payload, headers=headers)
         resp_json = r.json()
         logger.debug('r.status_code', r.status_code)
-        logger.debug('r.text', r.text)
+        print(f'r.text: {r.text}')
 
         # output_status = r.text
         if r.status_code == 200:
             return devices_view(request)
         else:
+            print(request.payload)
             return render(
                 request,
                 "ttn.html",
-                {"error": resp_json['details'][0]['message_format']}
+                {"error": resp_json['message']}
             )
 
             # output_status = "Status: Device failed to register. Please make sure your device information is correct and that the device is not already registered."
 
     except Exception:
         logger.debug(f"Error: TTN Post.\n{traceback.format_exc()}")
-        return render(request, "ttn.html", {"error": traceback.format_exc()})
+        return render(request, "ttn.html", {"error": traceback.format_exc(), "app_names": app_names})
 
 
 def getTTNDevices():
