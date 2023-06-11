@@ -97,17 +97,34 @@ def ttn_view(request):
 
 
 def getTTNDevices():
-    devices = subprocess.Popen(
-        "ttn-lw-cli end-device list --application-id abctest", 
+
+    applications = subprocess.Popen(
+        "ttn-lw-cli applications list",
         stdout=subprocess.PIPE, 
         stderr=subprocess.PIPE, 
         shell=True
     )
-    
-    #converts returned bytes object into list of dicts
-    output, _ = devices.communicate()
+    output, _ = applications.communicate()
     dict_str = output.decode("UTF-8")
-    devices_list = ast.literal_eval(dict_str) 
+    application_list = ast.literal_eval(dict_str)
+
+    devices_list = []
+
+    # For each application-id, use it to get all associated TTN devices
+    for app in application_list:
+        app_name = app["ids"]["application_id"]
+        app_devices = subprocess.Popen(
+            "ttn-lw-cli end-device list --application-id " + app_name, 
+            stdout=subprocess.PIPE, 
+            stderr=subprocess.PIPE, 
+            shell=True
+        )
+        output, _ = app_devices.communicate()
+        dict_str = output.decode("UTF-8")
+        app_devices = ast.literal_eval(dict_str) 
+
+        devices_list += (app_devices)
+
 
     for device in devices_list:
         device["device_network"] = "TTN"
