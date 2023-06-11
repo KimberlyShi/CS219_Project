@@ -17,15 +17,19 @@
             {% endif %}
          </div>
          <form method="GET" action="" id="survey-form" name="survey-form">
-            <!-- <fieldset>
+            <fieldset>
                <label for="dropdown">
-                  Select device type? *
+                  Select application *
                   <select id="dropdown" name="dropdown" class="m-t-xs">
-                     <option value="ttn" selected>TTN</option>
-                     <option value="twilio">Twilio</option>
+                     <!-- <option value="ttn" selected>TTN</option>
+                     <option value="twilio">Twilio</option> -->
+                     <option value="none" selected disabled hidden>Select an Option</option>
+                  {% for application in app_names %}
+                  <option id = "dropdown" value="{{ application }}">{{ application }}</option>
+                  {% endfor %} 
                   </select>
                </label>
-               </fieldset> -->
+            </fieldset>
             <fieldset>
                <label for="device_id" id="device_id-label">
                   Device ID *
