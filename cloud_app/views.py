@@ -213,18 +213,28 @@ def device_details(request, id: str):
     
     if len(ttn_devices):
         device = ttn_devices[0]
-        return render(
-            request,
-            'device_details.html',
-            {
+        device_info = {
                 'device_id': device['ids']['device_id'],
                 'application_id': device['ids']['application_ids']['application_id'],
                 'device_network': device['device_network'],
                 'created_at': device['created_at'],
                 'updated_at': device['updated_at'],
-                'join_eui': device['ids']['join_eui'],
-                'dev_eui': device['ids']['dev_eui'],
-            }
+        }
+
+        if device.get('ids').get('join_eui'):
+            device_info["join_eui"] = device['ids']['join_eui']
+        else:
+            device_info["join_eui"] = "None"
+
+        if device.get('ids').get('dev_eui'):
+            device_info["dev_eui"] = device['ids']['dev_eui']
+        else:
+            device_info["dev_eui"] = "None"
+
+        return render(
+            request,
+            'device_details.html',
+            device_info
         )
 
     elif len(twilio_devices):
