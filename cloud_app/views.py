@@ -168,28 +168,24 @@ def devices_view(request):
     ttn_devices = getTTNDevices()
     twilio_devices = getTwilioDevices()
 
-    print(type(twilio_devices))
-    print(type(ttn_devices))
-
     # makes common list of devices to be displayed in one table in devices page
     combined_devices = []
-    print(ttn_devices[0])
     for device in ttn_devices:
         device["device_id"] = device["ids"]["device_id"]
         combined_devices.append(device)
+        device["created_at"] = device["created_at"].replace(tzinfo=None)
 
     for device in twilio_devices:
-        device["device_id"] = device["iccid"]
         combined_devices.append(device)
+        device["created_at"] = device["created_at"].replace(tzinfo=None)
 
-    print("#"*100)
-    for d in combined_devices:
-        print(d)
+
+    combined_devices = sorted(combined_devices, key=lambda x: x["created_at"])
+
     return render(
         request,
         'devices.html',
-        # {'ttn_devices': ttn_devices, 'twilio_devices': twilio_devices}
-        {'device': combined_devices}
+        {'combined_devices': combined_devices}
     )
 
 def device_details(request, id: str):
