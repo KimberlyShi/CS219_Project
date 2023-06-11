@@ -173,6 +173,41 @@ def devices_view(request):
         {'ttn_devices': ttn_devices, 'twilio_devices': twilio_devices}
     )
 
+def device_details(request, id: str):
+    ttn_devices = [device for device in getTTNDevices() if device['ids']['device_id'] == id]
+    twilio_devices = [device for device in getTwilioDevices() if device['iccid'] == id]
+    
+    if len(ttn_devices):
+        device = ttn_devices[0]
+        return render(
+            request,
+            'device_details.html',
+            {
+                'device_id': device['ids']['device_id'],
+                'application_id': device['ids']['application_ids']['application_id'],
+                'device_network': device['device_network'],
+                'created_at': device['created_at'],
+                'updated_at': device['updated_at'],
+                'join_eui': device['ids']['join_eui'],
+                'dev_eui': device['ids']['dev_eui'],
+            }
+        )
+
+    elif len(twilio_devices):
+        device = twilio_devices[0]
+        return render(
+            request,
+            'device_details.html',
+            device
+        )
+
+    else:
+        return render(
+            request,
+            'device_details.html',
+            {'error': f'Device {id} not found.'}
+        )
+
 def twilio_view(request):
     # account_sid = request.GET.get('account_sid', False) # os.getenv('TWILIO_ACCOUNT_SID')
     # auth_token = request.GET.get('auth_token', False) # os.getenv('TWILIO_AUTH_TOKEN')

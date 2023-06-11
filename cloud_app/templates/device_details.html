@@ -1,0 +1,28 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'styled_table.css' %}">
+<link rel="stylesheet" href="{% static 'ttn.css' %}">
+<main id="main" class="container"></main>
+{% if error is not None %}
+<div>Error: {{ error }}</div>
+{% else %}
+{% if device_network == "TTN" %}
+
+<div>Device ID: {{ device_id }}</div>
+<div>Join EUI: {{ join_eui }}</div>
+<div>Dev EUI: {{ dev_eui }}</div>
+<div>Application ID: {{ application_id }}</div>
+<div>Device Network: {{ device_network }}</div>
+<div>Created At: {{ created_at }}</div>
+<div>Updated At: {{ updated_at }}</div>
+
+{% else %}
+
+<div>Device ID: {{ iccid }}</div>
+<div>SID: {{ sid }}</div>
+<div>Device Network: {{ device_network }}</div>
+<div>Status: {{ status }}</div>
+<div>Created At: {{ created_at }}</div>
+<div>Updated At: {{ updated_at }}</div>
+
+{% endif %}
+{% endif %}

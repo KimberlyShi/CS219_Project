@@ -7,6 +7,7 @@ urlpatterns = [
     path('ttn/', views.ttn_view, name="ttn_view"),
     # path('ttn_submit/', views.ttn_submit, name="ttn_submit"),
     path('devices/', views.devices_view, name="devices_view"),
+    path('devices/<str:id>/', views.device_details, name="device_details"),
     path('twilio/', views.twilio_view, name="twilio_view"),
 
     # path('', views.index, name='index'),

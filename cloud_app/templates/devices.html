@@ -27,7 +27,7 @@
          {% for d in ttn_devices %}
          <tr>
             <td>{{d.device_network}}</td>
-            <td>{{d.ids.device_id|default:"None"}}</td>
+            <td><a href="{{ d.ids.device_id }}">{{d.ids.device_id}}</a></td>
             <td>{{d.ids.dev_eui|default:"None"}}</td>
             <td>{{d.ids.join_eui|default:"None"}}</td>
             <td>{{d.created_at|date:"G:i M d, Y"|default:"None"}}</td>
@@ -56,7 +56,7 @@
          {% for d in twilio_devices %}
          <tr>
             <td>{{d.device_network}}</td>
-            <td>{{d.iccid|default:"None"}}</td>
+            <td><a href="{{ d.iccid }}">{{d.iccid}}</a></td>
             <td>{{d.sid|default:"None"}}</td>
             <td>{{d.status|default:"None"}}</td>
             <td>{{d.created_at|date:"G:i M d, Y"|default:"None"}}</td>
