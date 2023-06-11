@@ -1,75 +1,84 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'styled_table.css' %}">
-
-<h1 class = "title", id="title">Registered Devices</h1>
-
-<!-- TTN TABLE -->
-<table class="styled-table">
-    <thead>
-        <tr>
+<link rel="stylesheet" href="{% static 'ttn.css' %}">
+<!-- <h1 class = "title", id="title">Registered Devices</h1> -->
+<main id="main" class="container"></main>
+<div class="row" style="margin-left:150px; margin-right:150px">
+   <div class="col-xs-12 col-lg-offset-3 col-lg-6">
+      <div class="m-b-md text-center">
+         <h1 id="title">Registered Devices</h1>
+         <h2 id="title">
+         View status of registered devices for TTN and Twilio</h1>
+      </div>
+   </div>
+   <!-- TTN TABLE -->
+   <table class="styled-table">
+      <thead>
+         <tr>
             <th>Device Network</th>
             <th>Device ID</th>
             <th>Dev EUI</th>
             <th>Join EUI</th>
             <th>Creation Date(UTC)</th>
             <th>Last Updated(UTC)</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for d in ttn_devices %}
-        <tr>
+         </tr>
+      </thead>
+      <tbody>
+         {% for d in ttn_devices %}
+         <tr>
             <td>{{d.device_network}}</td>
             <td>{{d.ids.device_id|default:"None"}}</td>
             <td>{{d.ids.dev_eui|default:"None"}}</td>
             <td>{{d.ids.join_eui|default:"None"}}</td>
             <td>{{d.created_at|date:"G:i M d, Y"|default:"None"}}</td>
             {% if d.updated_at == "Never"%}
-                <td>{{d.updated_at}}</td>
+            <td>{{d.updated_at}}</td>
             {% else %}
-                <td>{{d.updated_at|date:"G:i M d, Y"|default_if_none:"Never"}}</td>
+            <td>{{d.updated_at|date:"G:i M d, Y"|default_if_none:"Never"}}</td>
             {% endif %}
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-<!-- TWILIO TABLE -->
-<table class="styled-table">
-    <thead>
-        <tr>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+   <!-- TWILIO TABLE -->
+   <table class="styled-table">
+      <thead>
+         <tr>
             <th>Device Network</th>
             <th>Device ICCID</th>
             <th>SID</th>
             <th>Status</th>
             <th>Creation Date(UTC)</th>
             <th>Last Updated(UTC)</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for d in twilio_devices %}
-        <tr>
+         </tr>
+      </thead>
+      <tbody>
+         {% for d in twilio_devices %}
+         <tr>
             <td>{{d.device_network}}</td>
             <td>{{d.iccid|default:"None"}}</td>
             <td>{{d.sid|default:"None"}}</td>
             <td>{{d.status|default:"None"}}</td>
             <td>{{d.created_at|date:"G:i M d, Y"|default:"None"}}</td>
             <td>{{d.updated_at|date:"G:i M d, Y"|default_if_none:"Never"}}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+</div>
+</main>
 <link rel="stylesheet" href="{% static 'home.css' %}">
 <!-- menu bar -->
 <body>
-    <input type="checkbox" id="active">
-    <label for="active" class="menu-btn"><span></span></label>
-    <label for="active" class="close"></label>
-    <div class="wrapper">
-       <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/ttn">TTN</a></li>
-          <li><a href="/twilio">Twilio</a></li>
-          <li><a href="">Devices</a></li>
-       </ul>
-    </div>
+   <input type="checkbox" id="active">
+   <label for="active" class="menu-btn"><span></span></label>
+   <label for="active" class="close"></label>
+   <div class="wrapper">
+      <ul>
+         <li><a href="/">Home</a></li>
+         <li><a href="/ttn">TTN</a></li>
+         <li><a href="/twilio">Twilio</a></li>
+         <li><a href="">Devices</a></li>
+      </ul>
+   </div>
+</body>
