@@ -21,8 +21,6 @@
                <label for="dropdown">
                   Select application *
                   <select id="dropdown" name="dropdown" class="m-t-xs">
-                     <!-- <option value="ttn" selected>TTN</option>
-                     <option value="twilio">Twilio</option> -->
                      <option value="none" selected disabled hidden>Select an Option</option>
                   {% for application in app_names %}
                   <option id = "dropdown" value="{{ application }}">{{ application }}</option>
@@ -58,12 +56,6 @@
                      required />
                </label>
             </fieldset>
-            <!-- <fieldset>
-               <label for="join_server_address" id="number-label">
-               Join Server Address *
-               <input class="" type="text" id="join_server_address" name="join_server_address" placeholder="Enter you age (required)" required />
-               </label>
-               </fieldset> -->
             <button id="submit" type="submit" class="btn">Submit the form</button>
          </form>
       </div>

@@ -23,8 +23,6 @@
   body {
     padding: 2% 0;
     background-color: var(--background-color);
-    /* background-color: #37404a; */
-    /* background-color: #FFF; */
   }
   
 h1 {
@@ -32,7 +30,6 @@ h1 {
     font-size: 2.2em;
     font-weight: 300;
     color: var(--accent-color);
-    /* color: #C70BFE; */
     text-transform: uppercase;
 }
 
@@ -41,14 +38,13 @@ h1 {
     margin: 25px 0;
     font-size: 0.9em;
     font-family: sans-serif;
-    min-width: 400px;
+    width: 100%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     margin-left: auto;
     margin-right: auto;
 }
 
 .styled-table thead tr {
-    /* background-color: #009879; */
     background-color: var(--accent-color);
     color: #ffffff;
     text-align: left;
@@ -68,7 +64,6 @@ h1 {
 }
 
 .styled-table tbody tr:last-of-type {
-    /* border-bottom: 2px solid #009879; */
     border-bottom: 2px solid var(--accent-color);
 }
 
