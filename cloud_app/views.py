@@ -9,7 +9,7 @@ import pytz
 import logging
 import traceback
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Devices
 
@@ -104,18 +104,10 @@ def ttn_view(request):
         logger.debug('r.status_code', r.status_code)
         print(f'r.text: {r.text}')
 
-        # output_status = r.text
         if r.status_code == 200:
-            return devices_view(request)
+            return redirect("devices_view")
         else:
-            print(request.payload)
-            return render(
-                request,
-                "ttn.html",
-                {"error": resp_json['message']}
-            )
-
-            # output_status = "Status: Device failed to register. Please make sure your device information is correct and that the device is not already registered."
+            return render(request, "ttn.html", {"error": resp_json['message']})
 
     except Exception:
         logger.debug(f"Error: TTN Post.\n{traceback.format_exc()}")
@@ -273,7 +265,7 @@ def twilio_view(request):
     try: 
         sim = client.supersim.v1.sims.create(iccid=iccid, registration_code=registration_code)
         logger.debug(f'Registed sim device with ssid "{sim.sid}"')
-        return devices_view(request)
+        return redirect("devices_view")
     except Exception:
         logger.warning(f'Failed to register sim device with iccid "{iccid}": {traceback.format_exc()}')
         return render(request, 'twilio.html',  {"output_status" : "Failed to register SIM device. Please make sure your device information is correct and that the device is not already registered."})

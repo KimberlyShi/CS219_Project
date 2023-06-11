@@ -5,24 +5,71 @@
 {% if error is not None %}
 <div>Error: {{ error }}</div>
 {% else %}
+<h2 style="margin-left: 5%;">Device Information</h2>
 {% if device_network == "TTN" %}
-
-<div>Device ID: {{ device_id }}</div>
-<div>Join EUI: {{ join_eui }}</div>
-<div>Dev EUI: {{ dev_eui }}</div>
-<div>Application ID: {{ application_id }}</div>
-<div>Device Network: {{ device_network }}</div>
-<div>Created At: {{ created_at }}</div>
-<div>Updated At: {{ updated_at }}</div>
+<div style="margin-left: 5%;">
+<table style="width:70%">
+    <tr>
+        <td><p>Device ID:</p></td>
+        <td><p>{{ device_id }}</p></td>
+    </tr>
+    <tr>
+        <td><p>Join EUI:</p></td>
+        <td><p>{{ join_eui }}</p></td>
+    </tr>
+    <tr>
+        <td><p>Dev EUI:</p></td>
+        <td><p>{{ dev_eui }}</p></td>
+    </tr>
+    <tr>
+        <td><p>Application ID:</p></td>
+        <td><p>{{ application_id }}</p></td>
+    </tr>
+    <tr>
+        <td><p>Device Network:</p></td>
+        <td><p>{{ device_network }}</p></td>
+    </tr>
+    <tr>
+        <td><p>Created At:</p></td>
+        <td><p>{{ created_at }}</p></td>
+    </tr>
+    <tr>
+        <td><p>Updated At:</p></td>
+        <td><p>{{ updated_at }}</p></td>
+    </tr>
+</table>
+</div>
 
 {% else %}
 
-<div>Device ID: {{ device_id }}</div>
-<div>SID: {{ sid }}</div>
-<div>Device Network: {{ device_network }}</div>
-<div>Status: {{ status }}</div>
-<div>Created At: {{ created_at }}</div>
-<div>Updated At: {{ updated_at }}</div>
+<div style="margin-left: 5%;">
+    <table style="width:70%">
+        <tr>
+            <td><p>Device ID:</p></td>
+            <td><p>{{ iccid }}</p></td>
+        </tr>
+        <tr>
+            <td><p>SID:</p></td>
+            <td><p>{{ sid }}</p></td>
+        </tr>
+        <tr>
+            <td><p>Device Network:</p></td>
+            <td><p>{{ device_network }}</p></td>
+        </tr>
+        <tr>
+            <td><p>Status:</p></td>
+            <td><p>{{ status }}</p></td>
+        </tr>
+        <tr>
+            <td><p>Created At:</p></td>
+            <td><p>{{ created_at }}</p></td>
+        </tr>
+        <tr>
+            <td><p>Updated At:</p></td>
+            <td><p>{{ updated_at }}</p></td>
+        </tr>
+    </table>
+    </div>
 
 {% endif %}
 {% endif %}
