@@ -1,3 +1,4 @@
+from copy import deepcopy
 import requests
 import json
 import subprocess
@@ -19,7 +20,8 @@ from dotenv import load_dotenv
 
 logger = logging.getLogger('views')
 
-
+ttn_cache = {}
+twilio_cache = {}
 
 def home_view(request):
     return render(request, "home.html")
@@ -183,8 +185,13 @@ def getTwilioDevices():
 
 
 def devices_view(request):
+    global ttn_cache, twilio_cache
+
     ttn_devices = getTTNDevices()
     twilio_devices = getTwilioDevices()
+
+    ttn_cache = deepcopy(ttn_devices)
+    twilio_cache = deepcopy(twilio_devices)
 
     # makes common list of devices to be displayed in one table in devices page
     combined_devices = []
@@ -208,9 +215,9 @@ def devices_view(request):
     )
 
 def device_details(request, id: str):
-    ttn_devices = [device for device in getTTNDevices() if device['ids']['device_id'] == id]
-    twilio_devices = [device for device in getTwilioDevices() if device['iccid'] == id]
-    
+    ttn_devices = [device for device in ttn_cache if device['ids']['device_id'] == id]
+    twilio_devices = [device for device in twilio_cache if device['iccid'] == id]
+
     if len(ttn_devices):
         device = ttn_devices[0]
         device_info = {
