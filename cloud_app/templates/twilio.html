@@ -3,38 +3,37 @@
 <link rel="stylesheet" href="{% static 'constants.css' %}">
 <link rel="stylesheet" href="{% static 'ttn.css' %}">
 <main id="main" class="container">
-    <div class="row" style="margin-left:150px; margin-right:150px">
-        <div class="col-xs-12 col-lg-offset-3 col-lg-6">
-            <div class="m-b-md text-center">
-                <h1 id="title">Twilio</h1>
-                <h2>Device Registration</h2>
-                <p id="description" class="description" class="text-center">Building a single cloud platform to support
-                    two
-                    IoT technologies
-                </p>
-                {% if error is not None %}
-                <p style="color:red;">Error: {{error}}</p>
-                {% endif %}
-            </div>
-            <form method="GET" action="" id="survey-form" name="survey-form">
-                <fieldset>
-                    <label for="iccid" id="iccid-label">
-                        iccid *
-                        <input class="" type="text" id="device_id" name="device_id"
-                            placeholder="Enter your iccid (required)" required />
-                    </label>
-                </fieldset>
-                <fieldset>
-                    <label for="registration_code" id="registration_code-label">
-                        Registration Code *
-                        <input class="" type="text" id="registration_code" name="registration_code"
-                            placeholder="Enter your registration code (required)" required />
-                    </label>
-                </fieldset>
-                <button id="submit" type="submit" class="btn">Submit the form</button>
-            </form>
-        </div>
-    </div>
+   <div class="row" style="margin-left:150px; margin-right:150px">
+      <div class="col-xs-12 col-lg-offset-3 col-lg-6">
+         <div class="m-b-md text-center">
+            <h1 id="title">Twilio</h1>
+            <h2>Device Registration</h2>
+            <p id="description" class="description" class="text-center">Building a single cloud platform to support two
+               IoT technologies
+            </p>
+            {% if error is not None %}
+            <p style="color:red;">Error: {{error}}</p>
+            {% endif %}
+         </div>
+         <form method="GET" action="" id="survey-form" name="survey-form">
+            <fieldset>
+               <label for="iccid" id="iccid-label">
+               iccid *
+               <input class="" type="text" id="iccid" name="iccid"
+                  placeholder="Enter your iccid (required)" required />
+               </label>
+            </fieldset>
+            <fieldset>
+               <label for="registration_code" id="registration_code">
+               Registration Code *
+               <input class="" type="text" id="registration_code" name="registration_code"
+                  placeholder="Enter your registration code (required)" required />
+               </label>
+            </fieldset>
+            <button id="submit" type="submit" class="btn">Submit the form</button>
+         </form>
+      </div>
+   </div>
 </main>
 <link rel="stylesheet" href="{% static 'home.css' %}">
 <!-- menu bar -->
