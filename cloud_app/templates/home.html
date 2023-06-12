@@ -1,29 +1,51 @@
 {% load static %}
 <!DOCTYPE html>
 <link rel="stylesheet" href="{% static 'home.css' %}">
+
 <head>
-   <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
-   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
+<div class="content">
+    <div class="title">
+        Device Registration
+    </div>
+    <p>
+        Building a single cloud platform to support two IoT technologies
+    </p>
+</div>
+</body>
+
+</head>
+
 <body>
-   <input type="checkbox" id="active">
-   <label for="active" class="menu-btn"><span></span></label>
-   <label for="active" class="close"></label>
-   <div class="wrapper">
-      <ul>
-         <li><a href="">Home</a></li>
-         <li><a href="ttn">TTN</a></li>
-         <li><a href="twilio">Twilio</a></li>
-         <li><a href="devices">Devices</a></li>
-      </ul>
-   </div>
-   <div class="content">
-      <div class="title">
-         Device Registration
-      </div>
-      <p>
-         Building a single cloud platform to support two IoT technologies
-      </p>
-   </div>
+    <!-- <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span> -->
+    <span style="    position: absolute;
+    z-index: 1;
+    right: 20px;
+    top: 20px;
+    height: 50px;
+    width: 50px;
+    font-size:30px;cursor:pointer;" onclick="openNav()">&#9776;</span>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="">Home</a>
+        <a href="ttn">TTN</a>
+        <a href="twilio">Twilio</a>
+        <a href="devices">Devices</a>
+    </div>
+
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+
 </body>

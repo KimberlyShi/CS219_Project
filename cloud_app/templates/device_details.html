@@ -1,6 +1,8 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'styled_table.css' %}">
 <link rel="stylesheet" href="{% static 'ttn.css' %}">
+<link rel="stylesheet" href="{% static 'home.css' %}">
+
 <main id="main" class="container"></main>
 {% if error is not None %}
 <div>Error: {{ error }}</div>
@@ -8,36 +10,64 @@
 <h2 style="margin-left: 5%;">Device Information</h2>
 {% if device_network == "TTN" %}
 <div style="margin-left: 5%;">
-<table style="width:70%">
-    <tr>
-        <td><p>Device ID:</p></td>
-        <td><p>{{ device_id }}</p></td>
-    </tr>
-    <tr>
-        <td><p>Join EUI:</p></td>
-        <td><p>{{ join_eui }}</p></td>
-    </tr>
-    <tr>
-        <td><p>Dev EUI:</p></td>
-        <td><p>{{ dev_eui }}</p></td>
-    </tr>
-    <tr>
-        <td><p>Application ID:</p></td>
-        <td><p>{{ application_id }}</p></td>
-    </tr>
-    <tr>
-        <td><p>Device Network:</p></td>
-        <td><p>{{ device_network }}</p></td>
-    </tr>
-    <tr>
-        <td><p>Created At:</p></td>
-        <td><p>{{ created_at }}</p></td>
-    </tr>
-    <tr>
-        <td><p>Updated At:</p></td>
-        <td><p>{{ updated_at }}</p></td>
-    </tr>
-</table>
+    <table style="width:70%">
+        <tr>
+            <td>
+                <p>Device ID:</p>
+            </td>
+            <td>
+                <p>{{ device_id }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Join EUI:</p>
+            </td>
+            <td>
+                <p>{{ join_eui }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Dev EUI:</p>
+            </td>
+            <td>
+                <p>{{ dev_eui }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Application ID:</p>
+            </td>
+            <td>
+                <p>{{ application_id }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Device Network:</p>
+            </td>
+            <td>
+                <p>{{ device_network }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Created At:</p>
+            </td>
+            <td>
+                <p>{{ created_at }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Updated At:</p>
+            </td>
+            <td>
+                <p>{{ updated_at }}</p>
+            </td>
+        </tr>
+    </table>
 </div>
 
 {% else %}
@@ -45,47 +75,88 @@
 <div style="margin-left: 5%;">
     <table style="width:70%">
         <tr>
-            <td><p>Device ID:</p></td>
-            <td><p>{{ iccid }}</p></td>
+            <td>
+                <p>Device ID:</p>
+            </td>
+            <td>
+                <p>{{ iccid }}</p>
+            </td>
         </tr>
         <tr>
-            <td><p>SID:</p></td>
-            <td><p>{{ sid }}</p></td>
+            <td>
+                <p>SID:</p>
+            </td>
+            <td>
+                <p>{{ sid }}</p>
+            </td>
         </tr>
         <tr>
-            <td><p>Device Network:</p></td>
-            <td><p>{{ device_network }}</p></td>
+            <td>
+                <p>Device Network:</p>
+            </td>
+            <td>
+                <p>{{ device_network }}</p>
+            </td>
         </tr>
         <tr>
-            <td><p>Status:</p></td>
-            <td><p>{{ status }}</p></td>
+            <td>
+                <p>Status:</p>
+            </td>
+            <td>
+                <p>{{ status }}</p>
+            </td>
         </tr>
         <tr>
-            <td><p>Created At:</p></td>
-            <td><p>{{ created_at }}</p></td>
+            <td>
+                <p>Created At:</p>
+            </td>
+            <td>
+                <p>{{ created_at }}</p>
+            </td>
         </tr>
         <tr>
-            <td><p>Updated At:</p></td>
-            <td><p>{{ updated_at }}</p></td>
+            <td>
+                <p>Updated At:</p>
+            </td>
+            <td>
+                <p>{{ updated_at }}</p>
+            </td>
         </tr>
     </table>
-    </div>
+</div>
 
 {% endif %}
 {% endif %}
 
 <!-- menu bar -->
-<link rel="stylesheet" href="{% static 'home.css' %}">
+
 <body>
-    <input type="checkbox" id="active">
-    <label for="active" class="menu-btn"><span></span></label>
-    <label for="active" class="close"></label>
-    <div class="wrapper">
-       <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/ttn">TTN</a></li>
-          <li><a href="/twilio">Twilio</a></li>
-          <li><a href="/devices">Devices</a></li>
-       </ul>
+    <!-- <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span> -->
+    <span style="    position: absolute;
+    z-index: 1;
+    right: 20px;
+    top: 20px;
+    height: 50px;
+    width: 50px;
+    font-size:30px;cursor:pointer;" onclick="openNav()">&#9776;</span>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/">Home</a>
+        <a href="/ttn">TTN</a>
+        <a href="/twilio">Twilio</a>
+        <a href="/devices">Devices</a>
     </div>
- </body>
+
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+
+</body>

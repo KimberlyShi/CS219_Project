@@ -3,84 +3,96 @@
 <link rel="stylesheet" href="{% static 'constants.css' %}">
 <link rel="stylesheet" href="{% static 'ttn.css' %}">
 <main id="main" class="container">
-   <div class="row" style="margin-left:150px; margin-right:150px">
-      <div class="col-xs-12 col-lg-offset-3 col-lg-6">
-         <div class="m-b-md text-center">
-            <h1 id="title">TTN</h1>
-            <h2 id="title">
-            Device Registration</h1>
-            <p id="description" class="description" class="text-center">Building a single cloud platform to support two
-               IoT technologies
-            </p>
-            {% if error is not None %}
-            <p style="color:red;">Error: {{error}}</p>
-            {% endif %}
-         </div>
-         <form method="GET" action="" id="survey-form" name="survey-form">
-            <fieldset>
-               <label for="dropdown">
-                  Select application *
-                  <select id="dropdown" name="dropdown" class="m-t-xs">
-                     <option value="none" selected disabled hidden>Select an Option</option>
-                  {% for application in app_names %}
-                  <option id = "dropdown" value="{{ application }}">{{ application }}</option>
-                  {% endfor %} 
-                  </select>
-               </label>
-            </fieldset>
-            <fieldset>
-               <label for="device_id" id="device_id-label">
-                  Device ID *
-                  <body>
-                     <p><small>This is the unique identifier for the device in this app. The device ID will be
-                        immutable. </small>
-                     </p>
-                  </body>
-                  <input class="" type="text" id="device_id" name="device_id"
-                     placeholder="Enter your Device ID (required)" required />
-               </label>
-            </fieldset>
-            <fieldset>
-               <label for="device_eui" id="device_eui-label">
-                  <!-- not sure if we actually need the device EUI -->
-                  Device EUI *
-                  <input class="" type="text" id="device_eui" name="device_eui"
-                     placeholder="Enter your Device EUI (required)" required />
-               </label>
-            </fieldset>
-            <fieldset>
-               <label for="join_eui" id="join_eui-label">
-                  <!-- not sure if we actually need the join EUI -->
-                  Join EUI *
-                  <input class="" type="text" id="join_eui" name="join_eui" placeholder="Enter your Join EUI (required)"
-                     required />
-               </label>
-            </fieldset>
-            <button id="submit" type="submit" class="btn">Submit the form</button>
-         </form>
-      </div>
-   </div>
+    <div class="row" style="margin-left:150px; margin-right:150px">
+        <div class="col-xs-12 col-lg-offset-3 col-lg-6">
+            <div class="m-b-md text-center">
+                <h1 id="title">TTN</h1>
+                <h2 id="title">
+                    Device Registration</h1>
+                    <p id="description" class="description" class="text-center">Building a single cloud platform to
+                        support two
+                        IoT technologies
+                    </p>
+                    {% if error is not None %}
+                    <p style="color:red;">Error: {{error}}</p>
+                    {% endif %}
+            </div>
+            <form method="GET" action="" id="survey-form" name="survey-form">
+                <fieldset>
+                    <label for="dropdown">
+                        Select application *
+                        <select id="dropdown" name="dropdown" class="m-t-xs">
+                            <option value="none" selected disabled hidden>Select an Option</option>
+                            {% for application in app_names %}
+                            <option id="dropdown" value="{{ application }}">{{ application }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                </fieldset>
+                <fieldset>
+                    <label for="device_id" id="device_id-label">
+                        Device ID *
+
+                        <body>
+                            <p><small>This is the unique identifier for the device in this app. The device ID will be
+                                    immutable. </small>
+                            </p>
+                        </body>
+                        <input class="" type="text" id="device_id" name="device_id"
+                            placeholder="Enter your Device ID (required)" required />
+                    </label>
+                </fieldset>
+                <fieldset>
+                    <label for="device_eui" id="device_eui-label">
+                        <!-- not sure if we actually need the device EUI -->
+                        Device EUI *
+                        <input class="" type="text" id="device_eui" name="device_eui"
+                            placeholder="Enter your Device EUI (required)" required />
+                    </label>
+                </fieldset>
+                <fieldset>
+                    <label for="join_eui" id="join_eui-label">
+                        <!-- not sure if we actually need the join EUI -->
+                        Join EUI *
+                        <input class="" type="text" id="join_eui" name="join_eui"
+                            placeholder="Enter your Join EUI (required)" required />
+                    </label>
+                </fieldset>
+                <button id="submit" type="submit" class="btn">Submit the form</button>
+            </form>
+        </div>
+    </div>
 </main>
 <link rel="stylesheet" href="{% static 'home.css' %}">
 <!-- menu bar -->
+
 <body>
-   <input type="checkbox" id="active">
-   <label for="active" class="menu-btn"><span></span></label>
-   <label for="active" class="close"></label>
-   <div class="wrapper">
-      <ul>
-         <li><a href="/">Home</a></li>
-         <li><a href="">TTN</a></li>
-         <li><a href="/twilio">Twilio</a></li>
-         <li><a href="/devices">Devices</a></li>
-      </ul>
-   </div>
-   <!-- <div class="content">
-      <div class="title">
-         Fullscreen Overlay Navigation Bar
-      </div>
-      <p>
-         (Hamburger Menu-2)
-      </p>
-      </div> -->
+    <!-- <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span> -->
+    <span style="    position: absolute;
+    z-index: 1;
+    right: 20px;
+    top: 20px;
+    height: 50px;
+    width: 50px;
+    font-size:30px;cursor:pointer;" onclick="openNav()">&#9776;</span>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/">Home</a>
+        <a href="">TTN</a>
+        <a href="/twilio">Twilio</a>
+        <a href="/devices">Devices</a>
+    </div>
+
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+
 </body>

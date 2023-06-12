@@ -4,49 +4,66 @@
 <!-- <h1 class = "title", id="title">Registered Devices</h1> -->
 <main id="main" class="container"></main>
 <div class="row" style="margin-left:150px; margin-right:150px">
-   <div class="col-xs-12 col-lg-offset-3 col-lg-6">
-      <div class="m-b-md text-center">
-         <h1 id="title">Registered Devices</h1>
-         <h2 id="title">
-         View status of registered devices for TTN and Twilio</h1>
-      </div>
-   </div>
-   <!-- TABLE for all devices -->
-   <table class="styled-table">
-      <thead>
-         <tr>
-            <th>Device Network</th>
-            <th>Device ID</th>
-            <th>Application ID</th>
-            <th>Creation Date(UTC)</th>
-         </tr>
-      </thead>
-      <tbody>
-         {% for d in combined_devices %}
-         <tr>
-            <td>{{d.device_network}}</td>
-            <td><a href="{{ d.device_id }}">{{d.device_id}}</a></td>
-            <td>{{d.ids.application_ids.application_id|default:"N/A"}}</td>
-            <td>{{d.created_at|date:"G:i M d, Y"|default:"None"}}</td>
-         </tr>
-         {% endfor %}
-      </tbody>
-   </table>
+    <div class="col-xs-12 col-lg-offset-3 col-lg-6">
+        <div class="m-b-md text-center">
+            <h1 id="title">Registered Devices</h1>
+            <h2 id="title">
+                View status of registered devices for TTN and Twilio</h1>
+        </div>
+    </div>
+    <!-- TABLE for all devices -->
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Device Network</th>
+                <th>Device ID</th>
+                <th>Application ID</th>
+                <th>Creation Date(UTC)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for d in combined_devices %}
+            <tr>
+                <td>{{d.device_network}}</td>
+                <td><a href="{{ d.device_id }}">{{d.device_id}}</a></td>
+                <td>{{d.ids.application_ids.application_id|default:"N/A"}}</td>
+                <td>{{d.created_at|date:"G:i M d, Y"|default:"None"}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 </div>
 </main>
 <link rel="stylesheet" href="{% static 'home.css' %}">
-<!-- menu bar -->
+
 <body>
-   <input type="checkbox" id="active">
-   <label for="active" class="menu-btn"><span></span></label>
-   <label for="active" class="close"></label>
-   <div class="wrapper">
-      <ul>
-         <li><a href="/">Home</a></li>
-         <li><a href="/ttn">TTN</a></li>
-         <li><a href="/twilio">Twilio</a></li>
-         <li><a href="">Devices</a></li>
-      </ul>
-   </div>
+    <!-- <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span> -->
+    <span style="    position: absolute;
+    z-index: 1;
+    right: 20px;
+    top: 20px;
+    height: 50px;
+    width: 50px;
+    font-size:30px;cursor:pointer;" onclick="openNav()">&#9776;</span>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/">Home</a>
+        <a href="/ttn">TTN</a>
+        <a href="/twilio">Twilio</a>
+        <a href="">Devices</a>
+    </div>
+
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+
 </body>
