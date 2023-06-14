@@ -93,7 +93,7 @@ def ttn_view(request):
     }
 
     post_payload = json.dumps(data)
-    # print(post_payload)
+    print(post_payload)
 
     # TODO: input sanitation and add error message
     
@@ -109,7 +109,7 @@ def ttn_view(request):
         if r.status_code == 200:
             return redirect("devices_view")
         else:
-            return render(request, "ttn.html", {"error": resp_json['message']})
+            return render(request, "ttn.html", {"error": resp_json['message'], "app_names": app_names})
 
     except Exception:
         logger.debug(f"Error: TTN Post.\n{traceback.format_exc()}")
