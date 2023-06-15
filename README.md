@@ -22,11 +22,13 @@ Then, login to TTN using the CLI. This will open a browser window where you can 
 ttn-lw-cli login --callback=false
 ```
 4. Upload your .env file containing values for TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, and TTN_API_KEY into the root folder of this project.
-5. Make and run django data model migrations:
+   
+6. Make and run django data model migrations:
 ```
 python3 manage.py makemigrations cloud_app
 python3 manage.py migrate
 ```
+
 # Running the project
 1. Launch the server.
 ```
