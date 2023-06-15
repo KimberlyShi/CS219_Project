@@ -3,5 +3,8 @@
 
 .ttn-lw-cli.yml
 
+db.sqlite3
+migrations/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
