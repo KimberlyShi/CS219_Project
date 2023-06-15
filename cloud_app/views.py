@@ -5,14 +5,12 @@ import subprocess
 import ast
 import os
 from datetime import datetime, timedelta
-import time
-import pytz
 import logging
 import traceback
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Devices
+from .models import DeviceUIDS
 
 from twilio.rest import Client
 from twilio.base.exceptions import TwilioException
@@ -107,6 +105,9 @@ def ttn_view(request):
         print(f'r.text: {r.text}')
 
         if r.status_code == 200:
+            combined_name = "TTN_" + form_device_id
+            new_device = DeviceUIDS.objects.create(u_name=combined_name)
+            new_device.save()
             return redirect("devices_view")
         else:
             return render(request, "ttn.html", {"error": resp_json['message'], "app_names": app_names})
@@ -208,6 +209,20 @@ def devices_view(request):
 
     combined_devices = sorted(combined_devices, key=lambda x: x["created_at"])
 
+    for d in combined_devices:
+        # combined_name is how we identifity the devices in our platform
+        # the uid field form the DeviceUIDS field uniquely identifies the IoT
+        # device on our platform.
+        combined_name = d["device_network"] + "_" + d["device_id"]
+        does_device_exist = DeviceUIDS.objects.filter(u_name=combined_name)
+        if not does_device_exist:
+            new_device = DeviceUIDS.objects.create(u_name=combined_name)
+            new_device.save()
+            d["uid"] = new_device.uid
+        else:
+            # there should only be one device per u_name
+            d["uid"] = does_device_exist[0].uid
+
     return render(
         request,
         'devices.html',
@@ -216,6 +231,7 @@ def devices_view(request):
 
 def device_details(request, id: str):
     ttn_devices = [device for device in ttn_cache if device['ids']['device_id'] == id]
+    print(ttn_devices)
     twilio_devices = [device for device in twilio_cache if device['iccid'] == id]
 
     if len(ttn_devices):
@@ -227,6 +243,13 @@ def device_details(request, id: str):
                 'created_at': device['created_at'],
                 'updated_at': device['updated_at'],
         }
+
+        combined_name = "TTN_" + device_info["device_id"]
+        does_device_exist = DeviceUIDS.objects.filter(u_name=combined_name)
+        if does_device_exist:
+            device_info['uid'] = does_device_exist[0].uid
+        else:
+            device_info['uid'] = "Error"
 
         if device.get('ids').get('join_eui'):
             device_info["join_eui"] = device['ids']['join_eui']
@@ -246,6 +269,13 @@ def device_details(request, id: str):
 
     elif len(twilio_devices):
         device = twilio_devices[0]
+        combined_name = "Twilio_" + device["iccid"]
+        does_device_exist = DeviceUIDS.objects.filter(u_name=combined_name)
+        if does_device_exist:
+            device['uid'] = does_device_exist[0].uid
+        else:
+            device['uid'] = "Error"
+
         return render(
             request,
             'device_details.html',
@@ -283,6 +313,9 @@ def twilio_view(request):
     try: 
         sim = client.supersim.v1.sims.create(iccid=iccid, registration_code=registration_code)
         logger.debug(f'Registed sim device with ssid "{sim.sid}"')
+        combined_name = "Twilio_" + iccid
+        new_device = DeviceUIDS.objects.create(u_name=combined_name)
+        new_device.save()
         return redirect("devices_view")
     except Exception:
         logger.warning(f'Failed to register sim device with iccid "{iccid}": {traceback.format_exc()}')

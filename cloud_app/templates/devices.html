@@ -16,6 +16,7 @@
         <thead>
             <tr>
                 <th>Device Network</th>
+                <th>Unique Platform ID</th>
                 <th>Device ID</th>
                 <th>Application ID</th>
                 <th>Creation Date(UTC)</th>
@@ -25,6 +26,7 @@
             {% for d in combined_devices %}
             <tr>
                 <td>{{d.device_network}}</td>
+                <td>{{d.uid}}</td>
                 <td><a href="{{ d.device_id }}">{{d.device_id}}</a></td>
                 <td>{{d.ids.application_ids.application_id|default:"N/A"}}</td>
                 <td>{{d.created_at|date:"G:i M d, Y"|default:"None"}}</td>
